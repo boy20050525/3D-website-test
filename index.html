@@ -1,43 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>BabylonJS Viewer - Basic usage</title>
-        <style>
-			.viewerContainer {
-                width: 400px;
-                height: 500px;				
-				image-rendering: pixelated; /* to prevent blury when zoomed out */
-			}
-
-        </style>
-		<script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
-	<script>
-		function loadit(modelUrl) {
-			if(modelUrl) {
-				let viewer = BabylonViewer.viewerManager.getViewerById('viewerID');
-				let temp = viewer.templateManager.getTemplate('navBar');
-				let param= temp._configuration;
-				param.params.hideVr=false;
-                param.params.disableOnFullscreen=true;
-				temp.updateParams(param);
-				viewer.loadModel(modelUrl)
-			}
-		}
-	</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>邱奕禓的跳舞天地</title>
+    <script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            animation: backgroundAnimation 15s infinite linear;
+        }
+        @keyframes backgroundAnimation {
+            0% { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+            25% { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+            50% { background: linear-gradient(135deg, #fad0c4, #ffdde1); }
+            75% { background: linear-gradient(135deg, #ff9a9e, #a1c4fd); }
+            100% { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+        }
+        h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        select:hover {
+            transform: scale(1.05);
+        }
+        .viewerContainer {
+            width: 400px;
+            height: 500px;
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            background: white;
+        }
+    </style>
+    <script>
+        function loadit(modelUrl) {
+            if (modelUrl) {
+                let viewer = BabylonViewer.viewerManager.getViewerById('viewerID');
+                let temp = viewer.templateManager.getTemplate('navBar');
+                let param = temp._configuration;
+                param.params.hideVr = false;
+                param.params.disableOnFullscreen = true;
+                temp.updateParams(param);
+                viewer.loadModel(modelUrl);
+            }
+        }
+    </script>
 </head>
 <body>
-<select onchange="loadit(this.value)">
-	<option value="">select model</option>
-	<option value="./models/model1.glb">Alice</option>
-	<option value="./models/model2.glb">Astronaut</option>
-	<option value="./models/model3.glb">Buddha</option>
-</select>
-<div class='viewerContainer'>
-	<babylon id="viewerID"><vr></vr></babylon>
-</div>
+    <h1>邱奕禓的跳舞天地</h1>
+    <select onchange="loadit(this.value)">
+        <option value="">選擇一個舞蹈模型</option>
+        <option value="./models/model1.glb">Amazing Dance</option>
+        <option value="./models/model2.glb">Wonderful Dance</option>
+        <option value="./models/model3.glb">Funny Dance</option>
+    </select>
+    <div class='viewerContainer'>
+        <babylon id="viewerID"><vr></vr></babylon>
+    </div>
 </body>
-
 </html>
